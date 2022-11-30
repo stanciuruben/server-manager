@@ -1,6 +1,6 @@
 {
     "env": {
-        "browser": true,
+        "browser": false,
         "commonjs": true,
         "es2021": true
     },
@@ -11,5 +11,7 @@
         "ecmaVersion": "latest"
     },
     "rules": {
+        "indent": ["error", 3],
+        "semi": ["error", "always"]
     }
 }

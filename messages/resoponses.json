@@ -1,0 +1,12 @@
+{
+	"en": {
+		"authentication-successful": "Authentication Successful! Redirecting...",
+		"authentication-unauthorized": "Wrong Username or Password",
+		"authentication-failed": "Authentication Denied!"
+	},
+	"de": {
+		"authentication-successful": "Authentifizierung erfolgreich! Sie werden umgleitet...",
+		"authentication-unauthorized": "Falscher Benützername oder Passwort",
+		"authentication-failed": "Authentifizierung fehlgeschlagen!"
+	}
+}
