@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"lint": "eslint ./",
-		"nodemon": "nodemon index.js"
+		"dev": "nodemon index.js"
 	},
 	"repository": {
 		"type": "git",
@@ -20,6 +20,7 @@
 	"homepage": "https://github.com/stanciuruben/server-manager#readme",
 	"dependencies": {
 		"bcrypt": "^5.1.0",
+		"bullmq": "^3.2.4",
 		"config": "^3.3.8",
 		"cookie-parser": "^1.4.6",
 		"express": "^4.18.2",
