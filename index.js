@@ -1,8 +1,8 @@
 // Start Queues
-require('./queues/writeFile');
+const writeFileQueue = require('./queues/writeFile');
 
 // Start Workers
-require('./workers/writeFile');
+const writeFileWorker = require('./workers/writeFile');
 
 // Express Setup
 const express = require('express');
@@ -22,3 +22,5 @@ const server = app.listen(PORT, function () {
    const port = server.address().port;
    console.log('\x1b[35m', `Listening at http://${host}${port}`);
 });
+
+module.exports = { app, server, writeFileQueue, writeFileWorker };

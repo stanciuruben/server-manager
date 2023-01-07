@@ -30,14 +30,14 @@ router.post('/', async (req, res) => {
             token
          });
       } else {
-         res.status(401).json({
-            status: 401,
+         res.status(400).json({
+            status: 400,
             message: serverResponses[resLanguage]['authentication-unauthorized']
          });
       }
    } catch (err) {
-      res.status(401).json({
-         status: 401,
+      res.status(400).json({
+         status: 400,
          message: serverResponses[resLanguage]['authentication-failed'],
          err: err.message
       });

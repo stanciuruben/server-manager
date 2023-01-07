@@ -1,13 +1,13 @@
 {
 	"en": {
-		"authentication-successful": "Authentication Successful! Redirecting...",
+		"authentication-successful": "Authentication Successful!",
 		"authentication-unauthorized": "Wrong Username or Password",
 		"authentication-failed": "Authentication Denied!",
 		"token-invalid": "Access Denied! Invalid Access Token.",
 		"job-queued": "Job Queued!"
 	},
 	"de": {
-		"authentication-successful": "Authentifizierung erfolgreich! Sie werden umgleitet...",
+		"authentication-successful": "Authentifizierung erfolgreich!",
 		"authentication-unauthorized": "Falscher Benützername oder Passwort",
 		"authentication-failed": "Authentifizierung fehlgeschlagen!",
 		"token-invalid": "Zugriff abgelehnt! Inkorrekter Token.",
