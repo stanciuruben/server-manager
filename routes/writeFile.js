@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middlewares/auth');
 const { addToWriteFile } = require('../queues/writeFile');
 const serverResponses = require('../messages/resoponses.json');
+const checkToken = require('../middlewares/check-token');
 
 // @route   POST
 // @desc    Add new job to Write Files Queue
 // @access  Private
-router.post('/', auth, (req, res) => {
+router.post('/', checkToken, (req, res) => {
    const resLanguage = req.body.lang ?? 'en';
    try {
       addToWriteFile({
