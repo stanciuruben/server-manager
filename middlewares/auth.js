@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const serverResponses = require('../messages/responses.json');
+const serverResponses = require('../messages/resoponses.json');
 
 module.exports = (req, res, next) => {
    const resLanguage = req.body.lang ?? 'en';
