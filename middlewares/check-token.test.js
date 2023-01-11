@@ -2,7 +2,7 @@ const checkToken = require('./check-token');
 const request = require('supertest');
 const { app, server, writeFileWorker, writeFileQueue } = require('../index');
 
-describe('checkToken middleware', () => {
+describe('check-token middleware', () => {
    describe('given a cookie with a JWT', () => {
       test('should call next() if the cookie is valid', async () => {
          const response = await request(app).post('/auth').send({
