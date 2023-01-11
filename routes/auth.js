@@ -30,18 +30,21 @@ router.post(
             );
             res.status(200).json({
                status: 200,
+               lang: resLanguage,
                message: serverResponses[resLanguage]['authentication-successful'],
                token
             });
          } else {
             res.status(400).json({
                status: 400,
+               lang: resLanguage,
                message: serverResponses[resLanguage]['authentication-unauthorized']
             });
          }
       } catch (err) {
          res.status(400).json({
             status: 400,
+            lang: resLanguage,
             message: serverResponses[resLanguage]['authentication-failed'],
             err: err.message
          });
