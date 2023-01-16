@@ -1,4 +1,4 @@
-const { app, server, redis, writeFileWorker, writeFileQueue } = require('../index');
+const { app, server } = require('../index');
 const request = require('supertest');
 const config = require('config');
 const jwt = require('jsonwebtoken');
@@ -75,7 +75,4 @@ describe(`POST ${ROUTE}`, () => {
 
 afterAll(async () => {
    server.close();
-   await writeFileWorker.close();
-   await writeFileQueue.close();
-   await redis.disconnect();
 });
