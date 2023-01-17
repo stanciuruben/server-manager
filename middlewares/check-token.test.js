@@ -1,10 +1,10 @@
 const checkToken = require('./check-token');
 const request = require('supertest');
-const { app, server, writeFileWorker, writeFileQueue } = require('../index');
+const { app, server } = require('../index');
 
 describe('check-token middleware', () => {
    describe('given a cookie with a JWT', () => {
-      test('should call next() if the cookie is valid', async () => {
+      test('should call next() if the token is valid', async () => {
          const response = await request(app).post('/auth').send({
             username: 'admin',
             password: 'admin',
@@ -21,10 +21,10 @@ describe('check-token middleware', () => {
                'zbl-auth-token': response.body.token
             }
          };
-         checkToken(req, {}, next);
+         await checkToken(req, {}, next);
          expect(next).toHaveBeenCalled();
       });
-      test('should call res.status() if the cookie is expired', () => {
+      test('should call res.status() if the token is expired', async () => {
          const res = {
             status: jest.fn(() => ({
                json: jest.fn()
@@ -40,10 +40,10 @@ describe('check-token middleware', () => {
                'zbl-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnQiOiJ6YmwiLCJsYW5nIjoiIiwidXNlciI6ImFkbWluIiwiaWF0IjoxNjczMTIyNTg5LCJleHAiOjE2NzMxMjYxODl9.LZ5e6Q8SR8Kgi7v1Xm1w6LI3ChbMLW-G_pJs2ZaNTQA'
             }
          };
-         checkToken(req, res, () => null);
+         await checkToken(req, res, () => null);
          expect(res.status).toHaveBeenCalled();
       });
-      test('should call res.status() if the cookie is invalid', () => {
+      test('should call res.status() if the token is invalid', async () => {
          const res = {
             status: jest.fn(() => ({
                json: jest.fn()
@@ -59,7 +59,7 @@ describe('check-token middleware', () => {
                'zbl-auth-token': 'eyJhbGcGllbnQiOiJ6YmwiLCJsYW5nIjoiIiwidXNlciI6ImFkbWluIiwiaWF0IjoxNjczMTIyNTg5LCJleHAiOjE2NzMxMjiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbYxODl9.LZ5e6Q8SR8Kgi7v1Xm1w6LI3ChbMLW-G_pJs2ZaNTQA'
             }
          };
-         checkToken(req, res, () => null);
+         await checkToken(req, res, () => null);
          expect(res.status).toHaveBeenCalled();
       });
    });
@@ -67,6 +67,4 @@ describe('check-token middleware', () => {
 
 afterAll(async () => {
    server.close();
-   await writeFileWorker.close();
-   await writeFileQueue.close();
 });
