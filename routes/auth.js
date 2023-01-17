@@ -4,12 +4,15 @@ const router = express.Router();
 const config = require('config');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const serverResponses = require('../messages/resoponses.json');
+const serverResponses = require('../messages/responses.json');
 const getTimeString = require('../services/getTimeString');
 const Redis = require('ioredis');
+const { v4: uuidv4 } = require('uuid');
 
 // @route   POST
-// @desc    Get lang, client, user and password => return token
+// @desc    Given lang, client, user and password, generates JWT,
+// @desc    saves it in the database and returns it to the client.
+// @desc    In case of any error saves the error in the database
 // @access  Public
 router.post(
    '/',
@@ -35,20 +38,13 @@ router.post(
                config.get('jwtSecret'),
                { expiresIn: '1h' }
             );
-            const isTokenSaved = await redis.zadd(`clients:${req.body.client}:valid-tokens`, [getTimeString(), token]);
+            await redis.zadd(`clients:${req.body.client}:valid-tokens`, [getTimeString(), token]);
             await redis.quit();
-            if (isTokenSaved) {
-               return res.status(200).json({
-                  status: 200,
-                  lang: resLanguage,
-                  message: serverResponses[resLanguage]['authentication-successful'],
-                  token
-               });
-            }
-            return res.status(500).json({
-               status: 500,
+            return res.status(200).json({
+               status: 200,
                lang: resLanguage,
-               message: serverResponses[resLanguage]['authentication-error']
+               message: serverResponses[resLanguage]['authentication-successful'],
+               token
             });
          }
          return res.status(400).json({
@@ -57,6 +53,17 @@ router.post(
             message: serverResponses[resLanguage]['authentication-unauthorized']
          });
       } catch (err) {
+         const errorId = uuidv4();
+         const errorTime = getTimeString();
+         const errorObject = {
+            date: errorTime,
+            error: err.message,
+            client: req.body.client,
+            req: req.body
+         };
+         await redis.zadd(`errors:${req.body.client}:unread`, [errorTime, errorId]);
+         await redis.call('JSON.SET', `errors:${req.body.client}#${errorId}`, '$', JSON.stringify(errorObject));
+         await redis.quit();
          return res.status(400).json({
             status: 400,
             lang: resLanguage,
