@@ -53,16 +53,19 @@ router.post(
             message: serverResponses[resLanguage]['authentication-unauthorized']
          });
       } catch (err) {
+         const registredClients = await redis.lrange('clients', 0, -1);
+         const clientName = registredClients.includes(req.body.client) ? req.body.client : 'anonymous';
          const errorId = uuidv4();
          const errorTime = getTimeString();
          const errorObject = {
             date: errorTime,
+            route: '/auth',
             error: err.message,
             client: req.body.client,
             req: req.body
          };
-         await redis.zadd(`errors:${req.body.client}:unread`, [errorTime, errorId]);
-         await redis.call('JSON.SET', `errors:${req.body.client}#${errorId}`, '$', JSON.stringify(errorObject));
+         await redis.zadd(`errors:${clientName}:unread`, [errorTime, errorId]);
+         await redis.call('JSON.SET', `errors:${clientName}#${errorId}`, '$', JSON.stringify(errorObject));
          await redis.quit();
          return res.status(400).json({
             status: 400,

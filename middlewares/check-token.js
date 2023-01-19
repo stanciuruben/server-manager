@@ -25,7 +25,7 @@ module.exports = async (req, res, next) => {
          }
          throw new Error(serverResponses[resLanguage]['token-invalid']);
       }
-      throw new Error(serverResponses[resLanguage]['token-invalid'] + ' ' + getTimeString('-1h'));
+      throw new Error(serverResponses[resLanguage]['token-invalid']);
    } catch (err) {
       return res.status(401).json({ status: 401, message: err.message });
    }

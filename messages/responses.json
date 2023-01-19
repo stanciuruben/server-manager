@@ -4,21 +4,25 @@
 		"authentication-unauthorized": "Wrong Username or Password",
 		"authentication-failed": "Authentication Denied!",
 		"authentication-error": "Authentication Error!",
+		"access-denied": "Access Denied!",
 		"logout-successful": "Logout Successful!",
 		"logout-failed": "Logout Failed!",
 		"token-invalid": "Access Denied! Invalid Access Token.",
 		"job-queued": "Job Queued!",
-		"invalid-request": "Invalid Request, wrong arguments provided or missing arguments."
+		"invalid-request": "Invalid Request, wrong arguments provided or missing arguments.",
+		"items-found": "Number of items found: "
 	},
 	"de": {
 		"authentication-successful": "Authentifizierung erfolgreich!",
 		"authentication-unauthorized": "Falscher Benützername oder Passwort",
 		"authentication-failed": "Authentifizierung fehlgeschlagen!",
 		"authentication-error": "Authentifizierungsfehler!",
+		"access-denied": "Zugriff abgelehnt!",
 		"logout-successful": "Abmeldung erfolgreich!",
 		"logout-failed": "Abmeldung fehlgeschlagen!",
 		"token-invalid": "Zugriff abgelehnt! Inkorrekter Token.",
 		"job-queued": "Auftrag in die Warteschlange gestellt!",
-		"invalid-request": "Ungültige Anfrage, falsche Argumente angegeben oder fehlende Argumente."
+		"invalid-request": "Ungültige Anfrage, falsche Argumente angegeben oder fehlende Argumente.",
+		"items-found": "Anzahl der gefundenen Artikel: "
 	}
 }
